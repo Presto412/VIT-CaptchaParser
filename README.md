@@ -7,6 +7,10 @@ Code is embedded in a function,CaptchaParse. Call the function with the bmp capt
 
 """
 img=Image.open("yourimagefilename")
+
+
+
+
 captcha=CaptchaParse(img)
 """
 
