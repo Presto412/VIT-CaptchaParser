@@ -51,8 +51,8 @@ def CaptchaParse(img):
         captcha=''
         for i in order:
             listwidth=GetCharWidth(i)
-            for x in range(0,12):
-                for y in range(0,130-listwidth):
+            for x in range(0,8):
+                for y in range(0,89-listwidth):
                     k=ReturnSplitMatrix(x,y,listwidth)                    
                     if k:
                         letter=MatchLetter(k,i)
