@@ -6,6 +6,12 @@ def CaptchaParse(img):
     tcopy=img.copy()
     copy=tcopy.crop((19,2,108,23)) 
     bitwise=copy.load()
+    for y in range(0,20):
+        for x in range(0,88):
+            temp=bitwise[x,y]
+            if y!=0 and y!=20:
+                if bitwise[x,y+1]==0 and temp==1 and bitwise[x,y-1]==0:
+                    bitwise[x,y]=0
     def GetCharWidth(char):
             temp=(datadict[char])
             for i in temp:
