@@ -30,6 +30,7 @@ def CaptchaParse(img):
     def MatchLetter(SplitMatrix,z):
             i=datadict[z]
             flag=0
+            onecount=0
             for j in range(0,13):
                 count=0
                 indexval=[]
@@ -41,6 +42,7 @@ def CaptchaParse(img):
                 for m in indexval:
                     if temp[m]=='1':
                         count+=1
+                        onecount+=1
                 if count<len(indexval):
                     return False
                 else:
@@ -48,7 +50,7 @@ def CaptchaParse(img):
                 indexval=[]
                 count=0
             if flag==1:
-                return True
+                return onecount
             else :
                 return False
     def ParseThroughMatrix():
@@ -57,16 +59,22 @@ def CaptchaParse(img):
         captcha=''
         for i in order:
             listwidth=GetCharWidth(i)
-            for x in range(0,7):
-                for y in range(0,88-listwidth):
+            for x in range(0,8):
+                for y in range(0,89-listwidth):
                     k=ReturnSplitMatrix(x,y,listwidth)                    
                     if k:
-                        letter=MatchLetter(k,i)
-                        if(letter):
-                            dict={y:i}
-                            sorter.update(dict)
+                        resp=MatchLetter(k,i)
+                        if resp is not False:
+                            tempdict={y:[i,resp]}
+                            if y in sorter.keys():
+                                value=tempdict[y]
+                                defvalue=sorter[y]
+                                if value[1]>defvalue[1]:
+                                    sorter.update(tempdict)
+                            else:
+                                sorter.update(tempdict)
         od = collections.OrderedDict(sorted(sorter.items()))
         for i in od.values():
-            captcha+=i
+            captcha+=i[0]
         return captcha
     return ParseThroughMatrix()
