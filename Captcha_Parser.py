@@ -65,7 +65,6 @@ def CaptchaParse(img):
                         if(letter):
                             dict={y:i}
                             sorter.update(dict)
-                            break
         od = collections.OrderedDict(sorted(sorter.items()))
         for i in od.values():
             captcha+=i
